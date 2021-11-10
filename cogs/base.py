@@ -25,7 +25,7 @@ class MainCommands(commands.Cog, name='Main Commands'):
       self.bot = bot
     @commands.command(name='credit')
     async def credit(self,ctx):
-      embed = discord.Embed(title='Creadit',description='Bot: `Brain Flooder#9985`\nImage: `SamuraiPlay#3615`\nYou can fork, edit this but make sure to keep this command.',color=0x7aadff)
+      embed = discord.Embed(title='Creadit',description='Bot: `Brain Flooder#9985`\nYou can fork, edit this but make sure to keep this command.',color=0x7aadff)
       await ctx.send(embed=embed)
 
     @commands.command(name='profile',aliases=['p'])
