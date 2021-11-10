@@ -9,27 +9,31 @@ def getCash(ctx):
   with open('cogs/stats.json')as f:
     stats = f.read()
     stats = json.loads(stats)
-    return stats[f'{ctx.id}']
+    return stats[f'{ctx.id}']["CP"]
 
 def setCash(ctx,value):
   stats={}
   with open('cogs/stats.json','r')as f:
     stats = json.loads(f.read())
   with open('cogs/stats.json','w')as f:
-    stats.update({f'{ctx.id}' : value})
+    stats.update({f'{ctx.id}' : {"CP":value}})
     f.write(json.dumps(stats))
 
 
 class MainCommands(commands.Cog, name='Main Commands'):
     def __init__(self, bot):
       self.bot = bot
+    @commands.command(name='credit')
+    async def credit(self,ctx):
+      embed = discord.Embed(title='Creadit',description='Bot: `Brain Flooder#9985`\nImage: `SamuraiPlay#3615`\nYou can fork, edit this but make sure to keep this command.',color=0x7aadff)
+      await ctx.send(embed=embed)
 
     @commands.command(name='profile',aliases=['p'])
     async def profile(self,ctx):
       args = {
       'bg_image' : 'https://cdn.discordapp.com/attachments/906037465410838548/906195035035435039/Untitled.png', # Background image link 
       'profile_image' : f'{ctx.author.avatar_url}', # User profile picture link
-      'next_xp' : 100000000, # xp required for next level
+      'next_xp' : 30000000, #TeamSeas
       'user_xp' : getCash(ctx.author), # User current xp
       'user_name' : f'{ctx.author.name}#{ctx.author.discriminator}', # user name with descriminator 
       'text_color' : '#ffffff', # Text color un HEX
@@ -61,7 +65,7 @@ class MainCommands(commands.Cog, name='Main Commands'):
           embed.set_footer(text=f'Requested by {ctx.author.name}{ctx.author.discriminator}',icon_url=ctx.author.avatar_url)
           await ctx.send(embed=embed)
           def check(m):
-            return m.content == levelName.lower() and m.channel == ctx.message.channel and m
+            return m.content.lower() == levelName.lower() and m.channel == ctx.message.channel and m
           try:
             try:
               value = getCash(ctx.author)
